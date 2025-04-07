@@ -1,0 +1,10 @@
+GET http://localhost:3001/songs
+
+GET http://localhost:3001/songs/1
+
+POST  http://localhost:3001/songs
+
+PUT  http://localhost:3001/songs/1
+
+DELETE   http://localhost:3001/songs/1
+
