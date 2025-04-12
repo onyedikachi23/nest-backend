@@ -1,22 +1,38 @@
+GET http://localhost:3001/
+
+###
 GET http://localhost:3001/songs
 
 ###
-GET http://localhost:3001/songs/3
+GET http://localhost:3001/songs/1
 
 ###
 POST  http://localhost:3001/songs
 Content-Type: application/json
 
 {
-    "title": "Alan walker",
-    "artists": ["Alan walker"],
-    "releaseDate": "2025-05-07",
-    "duration": "02:34"
+    "title": "Eminem",
+    "artists": ["Alan walker", "Kachi"],
+    "releasedDate": "2025-05-12",
+    "duration": "02:34",
+    "lyrics": "This thing is working"
 }
 
 ###
 PUT  http://localhost:3001/songs/1
+Content-Type: application/json
+
+{
+    "title": "Eminem",
+    "artists": ["Alan walker", "me"],
+    "releasedDate": "2025-05-07",
+    "duration": "02:34",
+    "lyrics": "This thing is working"
+}
 
 ###
 DELETE   http://localhost:3001/songs/1
+
+###
+DELETE   http://localhost:3001/songs/reset
 
