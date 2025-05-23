@@ -2,11 +2,12 @@
 
 import { Injectable, Scope } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 import { CreateSongDTO } from "./dto/create-song-dto";
 import { UpdateSongDto } from "./dto/update-song";
 import { Song } from "./songs.entity";
 import { IPaginationOptions, paginate } from "nestjs-typeorm-paginate";
+import { Artist } from "src/artists/artist.entity";
 
 @Injectable({
 	scope: Scope.TRANSIENT,
@@ -14,10 +15,12 @@ import { IPaginationOptions, paginate } from "nestjs-typeorm-paginate";
 export class SongsService {
 	constructor(
 		@InjectRepository(Song)
-		private songsRespository: Repository<Song>
+		private songsRepository: Repository<Song>,
+		@InjectRepository(Artist)
+		private artistsRepository: Repository<Artist>
 	) {}
 
-	create(songDTO: CreateSongDTO) {
+	async create(songDTO: CreateSongDTO) {
 		const song = new Song();
 		song.title = songDTO.title;
 		song.artists = songDTO.artists;
@@ -25,33 +28,39 @@ export class SongsService {
 		song.lyrics = songDTO.lyrics;
 		song.releasedDate = songDTO.releasedDate;
 
-		return this.songsRespository.save(song);
+		const artists = await this.artistsRepository.findBy({
+			id: In(songDTO.artists),
+		});
+
+		song.artists = artists;
+
+		return this.songsRepository.save(song);
 	}
 
 	findAll(): Promise<Song[]> {
-		return this.songsRespository.find();
+		return this.songsRepository.find();
 	}
 
 	findOne(id: number) {
-		return this.songsRespository.findOneBy({ id });
+		return this.songsRepository.findOneBy({ id });
 	}
 
 	remove(id: number) {
-		return this.songsRespository.delete(id);
+		return this.songsRepository.delete(id);
 	}
 
 	update(id: number, record: UpdateSongDto) {
-		return this.songsRespository.update(id, record);
+		return this.songsRepository.update(id, record);
 	}
 
 	reset() {
-		return this.songsRespository.query(
+		return this.songsRepository.query(
 			"TRUNCATE TABLE songs RESTART IDENTITY CASCADE;"
 		);
 	}
 
 	paginate(options: IPaginationOptions) {
-		const queryBuilder = this.songsRespository.createQueryBuilder("c");
+		const queryBuilder = this.songsRepository.createQueryBuilder("c");
 		queryBuilder.orderBy("c.releasedDate", "DESC");
 
 		return paginate(queryBuilder, options);

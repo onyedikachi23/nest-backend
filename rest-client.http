@@ -11,8 +11,8 @@ POST  http://localhost:3001/songs
 Content-Type: application/json
 
 {
-    "title": "Eminem",
-    "artists": ["Alan walker", "Kachi"],
+    "title": "You and me",
+    "artists": [1,2],
     "releasedDate": "2025-05-12",
     "duration": "02:34",
     "lyrics": "This thing is working"
@@ -36,3 +36,13 @@ DELETE   http://localhost:3001/songs/1
 ###
 DELETE   http://localhost:3001/songs/reset
 
+###
+POST http://localhost:3001/auth/signup
+Content-Type: application/json
+
+{
+"firstName": "john",
+"lastName": "doe",
+"email": "johnle@gmail.com",
+"password": "123456"
+}
