@@ -14,8 +14,11 @@ import {
 	Post,
 	Put,
 	Query,
+	Request,
 	Scope,
+	UseGuards,
 } from "@nestjs/common";
+import { ArtistJwtGuard } from "src/auth/artists-jwt-guard";
 import { Connection } from "src/common/constants/connection";
 import { CreateSongDTO } from "./dto/create-song-dto";
 import { UpdateSongDto } from "./dto/update-song";
@@ -31,14 +34,17 @@ export class SongsController {
 		private songsService: SongsService,
 		@Inject("CONNECTION")
 		private connection: Connection
-	) {
-		console.log(
-			"This is connection string " + JSON.stringify(this.connection)
-		);
-	}
+	) {}
 
 	@Post()
-	create(@Body() createSongDTO: CreateSongDTO): Promise<Song> {
+	@UseGuards(ArtistJwtGuard)
+	create(
+		@Body() createSongDTO: CreateSongDTO,
+		@Request()
+		request
+	): Promise<Song> {
+		console.log("user request", request);
+
 		return this.songsService.create(createSongDTO);
 	}
 

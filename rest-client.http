@@ -36,13 +36,29 @@ DELETE   http://localhost:3001/songs/1
 ###
 DELETE   http://localhost:3001/songs/reset
 
-###
+### Signup Artist
 POST http://localhost:3001/auth/signup
 Content-Type: application/json
 
 {
-"firstName": "john",
-"lastName": "doe",
-"email": "johnle@gmail.com",
+"firstName": "Kachi",
+"lastName": "Nerd",
+"email": "kachinerd02@gmail.com",
 "password": "123456"
 }
+
+### Login Artist
+POST http://localhost:3001/auth/login
+Content-Type: application/json
+
+{
+"email": "kachinerd02@gmail.com",
+"password": "123456"
+}
+
+## access token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthY2hpbmVyZDAyQGdtYWlsLmNvbSIsInVzZXJJZCI6MTQsImlhdCI6MTc0ODAyOTc4NCwiZXhwIjoxNzQ4MTE2MTg0fQ.cFr0CPkoSx95j6L56VS2wc9DhRxOWLBFvXA9FuanNtE
+
+### Profile
+GET http://localhost:3001/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthY2hpbmVyZDAyQGdtYWlsLmNvbSIsInVzZXJJZCI6MTQsImlhdCI6MTc0ODAyOTc4NCwiZXhwIjoxNzQ4MTE2MTg0fQ.cFr0CPkoSx95j6L56VS2wc9DhRxOWLBFvXA9FuanNtE
+

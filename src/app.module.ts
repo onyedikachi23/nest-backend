@@ -13,6 +13,7 @@ import { Song } from "./songs/songs.entity";
 import { SongsModule } from "./songs/songs.module";
 import { User } from "./users/user.entity";
 import { UsersModule } from "./users/users.module";
+import { ArtistsModule } from './artists/artists.module';
 
 @Module({
 	imports: [
@@ -29,6 +30,7 @@ import { UsersModule } from "./users/users.module";
 		SongsModule,
 		AuthModule,
 		UsersModule,
+		ArtistsModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
