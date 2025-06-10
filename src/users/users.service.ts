@@ -47,4 +47,28 @@ export class UsersService {
 		}
 		return user;
 	}
+
+	async findById(id: number) {
+		return this.usersRepository.findOneBy({ id: id });
+	}
+
+	updateSecretKey(userId: number, secret: string) {
+		return this.usersRepository.update(
+			{ id: userId },
+			{
+				twoFASecret: secret,
+				enable2FA: true,
+			}
+		);
+	}
+
+	disable2FA(userId: number) {
+		return this.usersRepository.update(
+			{ id: userId },
+			{
+				enable2FA: false,
+				twoFASecret: null,
+			}
+		);
+	}
 }

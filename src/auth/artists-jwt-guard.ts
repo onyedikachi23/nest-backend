@@ -6,7 +6,7 @@ import {
 	UnauthorizedException,
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
-import { PayloadType } from "./payload.type";
+import { PayloadType } from "./types";
 
 Injectable();
 export class ArtistJwtGuard extends AuthGuard("jwt") {

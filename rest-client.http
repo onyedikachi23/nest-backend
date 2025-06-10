@@ -9,10 +9,11 @@ GET http://localhost:3001/songs/1
 ###
 POST  http://localhost:3001/songs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthY2hpbmVyZG1lMDNAZ21haWwuY29tIiwidXNlcklkIjoxOCwiYXJ0aXN0SWQiOjUsImlhdCI6MTc0ODc4MDQyNSwiZXhwIjoxNzQ4ODY2ODI1fQ.YBE2BUkYgi6fs4FSARxc2JDFxg-OJAL49Kms3vs2U4s
 
 {
     "title": "You and me",
-    "artists": [1,2],
+    "artists": [1],
     "releasedDate": "2025-05-12",
     "duration": "02:34",
     "lyrics": "This thing is working"
@@ -21,10 +22,11 @@ Content-Type: application/json
 ###
 PUT  http://localhost:3001/songs/1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthY2hpbmVyZG1lMDNAZ21haWwuY29tIiwidXNlcklkIjoxOCwiYXJ0aXN0SWQiOjUsImlhdCI6MTc0ODc4MDQyNSwiZXhwIjoxNzQ4ODY2ODI1fQ.YBE2BUkYgi6fs4FSARxc2JDFxg-OJAL49Kms3vs2U4s
 
 {
     "title": "Eminem",
-    "artists": ["Alan walker", "me"],
+    "artists": [1],
     "releasedDate": "2025-05-07",
     "duration": "02:34",
     "lyrics": "This thing is working"
@@ -41,10 +43,10 @@ POST http://localhost:3001/auth/signup
 Content-Type: application/json
 
 {
-"firstName": "Kachi",
-"lastName": "Nerd",
-"email": "kachinerd02@gmail.com",
-"password": "123456"
+"firstName": "Kachime",
+"lastName": "Nerdme",
+"email": "kachinerdme03@gmail.com",
+"password": "223344"
 }
 
 ### Login Artist
@@ -52,13 +54,29 @@ POST http://localhost:3001/auth/login
 Content-Type: application/json
 
 {
-"email": "kachinerd02@gmail.com",
-"password": "123456"
+"email": "kachinerdme03@gmail.com",
+"password": "223344"
 }
 
-## access token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthY2hpbmVyZDAyQGdtYWlsLmNvbSIsInVzZXJJZCI6MTQsImlhdCI6MTc0ODAyOTc4NCwiZXhwIjoxNzQ4MTE2MTg0fQ.cFr0CPkoSx95j6L56VS2wc9DhRxOWLBFvXA9FuanNtE
 
 ### Profile
 GET http://localhost:3001/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthY2hpbmVyZDAyQGdtYWlsLmNvbSIsInVzZXJJZCI6MTQsImlhdCI6MTc0ODAyOTc4NCwiZXhwIjoxNzQ4MTE2MTg0fQ.cFr0CPkoSx95j6L56VS2wc9DhRxOWLBFvXA9FuanNtE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthY2hpbmVyZG1lMDNAZ21haWwuY29tIiwidXNlcklkIjoxOCwiYXJ0aXN0SWQiOjUsImlhdCI6MTc0ODc4MDQyNSwiZXhwIjoxNzQ4ODY2ODI1fQ.YBE2BUkYgi6fs4FSARxc2JDFxg-OJAL49Kms3vs2U4s
+
+### Enable 2FA
+GET http://localhost:3001/auth/enable-2fa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthY2hpbmVyZG1lMDNAZ21haWwuY29tIiwidXNlcklkIjoxOCwiYXJ0aXN0SWQiOjUsImlhdCI6MTc0OTU1MzYzMSwiZXhwIjoxNzQ5NjQwMDMxfQ.qFsK0xFaICrhKRE7wcAC8f7vrsXnbojw8w4KOBpaNeg
+
+### Validate 2FA token
+POST http://localhost:3001/auth/validate-2fa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthY2hpbmVyZG1lMDNAZ21haWwuY29tIiwidXNlcklkIjoxOCwiYXJ0aXN0SWQiOjUsImlhdCI6MTc0OTU1MzYzMSwiZXhwIjoxNzQ5NjQwMDMxfQ.qFsK0xFaICrhKRE7wcAC8f7vrsXnbojw8w4KOBpaNeg
+Content-Type: application/json
+
+{
+    "token": "573409"
+}
+
+### Disable 2FA
+GET http://localhost:3001/auth/disable-2fa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthY2hpbmVyZG1lMDNAZ21haWwuY29tIiwidXNlcklkIjoxOCwiYXJ0aXN0SWQiOjUsImlhdCI6MTc0OTQ5MTI0MiwiZXhwIjoxNzQ5NTc3NjQyfQ.wH-xvDuHWIpTTGrhlTXERpfB6O54fnk1kVomRwQxWX4
 

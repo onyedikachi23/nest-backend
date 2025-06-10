@@ -1,11 +1,21 @@
 /** @format */
 
-import { Body, Controller, Post } from "@nestjs/common";
+import {
+	Body,
+	Controller,
+	Get,
+	Post,
+	Request,
+	UseGuards,
+} from "@nestjs/common";
+import { ArtistsService } from "src/artists/artists.service";
 import { CreateUserDTO } from "src/users/dto/create-user.dto";
 import { UsersService } from "src/users/users.service";
-import { LoginDTO } from "./dto/login.dto";
 import { AuthService } from "./auth.service";
-import { ArtistsService } from "src/artists/artists.service";
+import { LoginDTO } from "./dto/login.dto";
+import { JwtAuthGuard } from "./jwt-auth-guard";
+import { Enable2FAType } from "./types";
+import { ValidateTokenDTO } from "./dto/validate-token.dto";
 
 @Controller("auth")
 export class AuthController {
@@ -15,12 +25,13 @@ export class AuthController {
 		private artistsService: ArtistsService
 	) {}
 	@Post("signup")
-	signup(
+	async signup(
 		@Body()
 		userDTO: CreateUserDTO
 	) {
-		const user = this.userService.create(userDTO);
-		await this.artistsService;
+		const user = await this.userService.create(userDTO);
+		await this.artistsService.create(user.id);
+		return user;
 	}
 
 	@Post("login")
@@ -29,5 +40,38 @@ export class AuthController {
 		loginDTO: LoginDTO
 	) {
 		return this.authService.login(loginDTO);
+	}
+
+	@Get("enable-2fa")
+	@UseGuards(JwtAuthGuard)
+	enable2FA(
+		@Request()
+		req
+	): Promise<Enable2FAType> {
+		console.log(req.user);
+		return this.authService.enable2FA(req.user.userId);
+	}
+
+	@Post("validate-2fa")
+	@UseGuards(JwtAuthGuard)
+	validate2FA(
+		@Request()
+		req,
+		@Body()
+		ValidateTokenDTO: ValidateTokenDTO
+	): Promise<{ verified: boolean }> {
+		return this.authService.validate2FAToken(
+			req.user.userId,
+			ValidateTokenDTO.token
+		);
+	}
+
+	@Get("disable-2fa")
+	@UseGuards(JwtAuthGuard)
+	disable2FA(
+		@Request()
+		req
+	) {
+		return this.authService.disable2FA(req.user.userId);
 	}
 }

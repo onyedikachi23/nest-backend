@@ -1,10 +1,10 @@
 /** @format */
 
 import { Injectable } from "@nestjs/common";
-import { Artist } from "./artist.entity";
 import { InjectRepository } from "@nestjs/typeorm";
+import { PayloadType } from "src/auth/types";
 import { Repository } from "typeorm";
-import { PayloadType } from "src/auth/payload.type";
+import { Artist } from "./artist.entity";
 
 @Injectable()
 export class ArtistsService {
