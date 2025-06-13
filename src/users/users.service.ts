@@ -33,9 +33,9 @@ export class UsersService {
 			const savedUser = await this.usersRepository.save(user);
 			const { password: _, ...userWithoutPassword } = savedUser;
 			return userWithoutPassword;
-		} catch {
+		} catch (err) {
 			// PostgreSQL unique violation code
-			throw new ConflictException("Email already exists");
+			throw new Error(err);
 		}
 	}
 
