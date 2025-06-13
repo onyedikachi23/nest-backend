@@ -11,6 +11,7 @@ import { CreateUserDTO } from "./dto/create-user.dto";
 import { LoginDTO } from "src/auth/dto/login.dto";
 import { User } from "./user.entity";
 import * as bcrypt from "bcryptjs";
+import * as uuid from "uuid";
 
 @Injectable()
 export class UsersService {
@@ -21,16 +22,16 @@ export class UsersService {
 
 	async create(createUserDto: CreateUserDTO) {
 		try {
-			const hashedPassword = await bcrypt.hash(
-				createUserDto.password,
-				10
-			);
-			const user = this.usersRepository.create({
-				...createUserDto,
-				password: hashedPassword,
-			});
-			await this.usersRepository.save(user);
-			const { password: _, ...userWithoutPassword } = user;
+			const user = new User();
+			user.firstName = createUserDto.firstName;
+			user.lastName = createUserDto.lastName;
+			user.email = createUserDto.email;
+			user.apiKey = uuid.v4();
+
+			user.password = await bcrypt.hash(createUserDto.password, 10);
+
+			const savedUser = await this.usersRepository.save(user);
+			const { password: _, ...userWithoutPassword } = savedUser;
 			return userWithoutPassword;
 		} catch {
 			// PostgreSQL unique violation code
@@ -70,5 +71,9 @@ export class UsersService {
 				twoFASecret: null,
 			}
 		);
+	}
+
+	async findByApiKey(apiKey: string) {
+		return this.usersRepository.findOneBy({ apiKey });
 	}
 }

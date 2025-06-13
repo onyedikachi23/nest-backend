@@ -45,7 +45,7 @@ Content-Type: application/json
 {
 "firstName": "Kachime",
 "lastName": "Nerdme",
-"email": "kachinerdme03@gmail.com",
+"email": "kachi05@gmail.com",
 "password": "223344"
 }
 
@@ -79,4 +79,9 @@ Content-Type: application/json
 ### Disable 2FA
 GET http://localhost:3001/auth/disable-2fa
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthY2hpbmVyZG1lMDNAZ21haWwuY29tIiwidXNlcklkIjoxOCwiYXJ0aXN0SWQiOjUsImlhdCI6MTc0OTQ5MTI0MiwiZXhwIjoxNzQ5NTc3NjQyfQ.wH-xvDuHWIpTTGrhlTXERpfB6O54fnk1kVomRwQxWX4
+
+### Auth profile
+GET http://localhost:3001/auth/profile
+Authorization: Bearer b47305d4-14aa-47ce-bb2c-dfd54c2f1a0d
+
 

@@ -116,4 +116,8 @@ export class AuthService {
 	async disable2FA(userId: number) {
 		return this.usersService.disable2FA(userId);
 	}
+
+	async validateUserByApiKey(apiKey: string) {
+		return this.usersService.findByApiKey(apiKey);
+	}
 }
